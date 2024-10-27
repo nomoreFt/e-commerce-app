@@ -1,0 +1,24 @@
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product
+    username: hyunwoo
+    password: hyunwoo
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    baseline-on-migrate: true  # 마이그레이션을 적용할 때 기존 스키마의 베이스라인을 설정하여 이전 마이그레이션이 없는 상태로 간주
+    enabled: true  # Flyway 마이그레이션을 활성화
+    baseline-description: "init"  # 베이스라인 마이그레이션 설명으로, 초기 마이그레이션을 "init"으로 표시
+    baseline-version: 0  # 베이스라인 버전을 0으로 설정하여 초기 상태를 표시
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+server:
+  port: 8050
