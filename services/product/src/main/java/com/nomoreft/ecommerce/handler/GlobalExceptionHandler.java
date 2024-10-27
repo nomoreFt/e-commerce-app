@@ -1,7 +1,7 @@
 package com.nomoreft.ecommerce.handler;
 
-import com.nomoreft.ecommerce.exception.CustomerNotFoundException;
-import org.springframework.http.HttpStatus;
+import com.nomoreft.ecommerce.exception.ProductPurchaseException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,13 +10,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CustomerNotFoundException.class)
-    public ResponseEntity<String> handleCustomerNotFoundException(CustomerNotFoundException e) {
+    @ExceptionHandler(ProductPurchaseException.class)
+    public ResponseEntity<String> handleCustomerNotFoundException(ProductPurchaseException e) {
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(BAD_REQUEST)
+                .body(e.getMessage());
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException e) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
                 .body(e.getMessage());
     }
 
@@ -30,7 +39,7 @@ public class GlobalExceptionHandler {
                     errors.put(fieldName, errorMessage);
                 });
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(BAD_REQUEST)
                 .body(new ErrorResponse(errors));
     }
 

@@ -1,17 +1,14 @@
 spring:
-
   datasource:
     url: jdbc:postgresql://localhost:5432/product
     username: hyunwoo
     password: hyunwoo
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: validate
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
   flyway:
     baseline-on-migrate: true  # 마이그레이션을 적용할 때 기존 스키마의 베이스라인을 설정하여 이전 마이그레이션이 없는 상태로 간주
     enabled: true  # Flyway 마이그레이션을 활성화
