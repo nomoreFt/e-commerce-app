@@ -11,6 +11,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/services/customer" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/services/customer" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/services/discovery" />
         <option name="modules">
           <set>
