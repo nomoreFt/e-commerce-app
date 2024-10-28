@@ -81,7 +81,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # Kafka가 사용할 Zookeeper 서버의 주소를 지정합니다.
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092 # Kafka 브로커가 클라이언트에게 응답할 주소를 지정합니다.
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT # Kafka 브로커가 사용할 보안 프로토콜을 지정합니다.
-
+    networks:
+        - microservices-net
 
   mail-dev:
     container_name: ms_mail_dev
