@@ -9,7 +9,13 @@ spring:
       ddl-auto: create
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092 # Kafka 브로커의 주소를 지정
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer #Kafka 메시지의 키를 직렬화하는 데 사용될 직렬화 클래스를 정의
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # Kafka 메시지의 값을 직렬화하는 데 사용될 직렬화 클래스를 정의
+      properties:
+        spring.json.type.mapping: orderConfirmation:com.nomoreft.ecommerce.kafka.OrderConfirmation # 특정 JSON 메시지 타입을 특정 클래스에 매핑하여 메시지 수신 시 해당 클래스로 역직렬화하는 설정
 server:
   port: 8070
 
