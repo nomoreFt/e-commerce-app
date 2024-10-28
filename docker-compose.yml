@@ -56,6 +56,33 @@ services:
     networks:
       - microservices-net
 
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1 # Zookeeper 서버의 ID를 설정합니다. 여러 Zookeeper 서버가 클러스터링되어 있는 경우 서버마다 고유의 ID가 필요합니다.
+      ZOOKEEPER_CLIENT_PORT: 2181 # Zookeeper가 클라이언트와 통신하는 포트
+      ZOOKEEPER_TICK_TIME: 2000 # 클러스터 내 Zookeeper 서버 간의 최소 통신 단위
+    ports:
+      - 22181:2181
+    networks:
+        - microservices-net
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: ms-kafka
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper # kafka 서비스가 zookeeper 서비스에 종속적임을 지정, Zookeeper가 준비될 때까지 Kafka가 시작되지 않도록 설정하여 Zookeeper 의존성을 보장
+    environment:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 # 오프셋을 관리하는 내부 토픽의 복제 계수를 설정합니다. 단일 브로커 설정이므로 1로 지정되어 있습니다.
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 # Kafka의 트랜잭션 로그에 대한 최소 ISR(동기화된 복제본 인-싱크 복제본) 수를 지정합니다. 트랜잭션 데이터를 복제하여 데이터 손실을 방지
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 # Kafka 트랜잭션 로그의 복제 계수를 설정합니다. 단일 브로커에서 동작하는 경우 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # Kafka가 사용할 Zookeeper 서버의 주소를 지정합니다.
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092 # Kafka 브로커가 클라이언트에게 응답할 주소를 지정합니다.
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT # Kafka 브로커가 사용할 보안 프로토콜을 지정합니다.
+
+
   mail-dev:
     container_name: ms_mail_dev
     image: maildev/maildev
