@@ -35,10 +35,12 @@ public class Order {
     private String customerId;
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
-    @Column(insertable = false, nullable = false)
+    @Column(nullable = false)
     private LocalDateTime lastModifiedAt;
 }

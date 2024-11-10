@@ -30,7 +30,7 @@ public class Payment {
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdDate;
     @LastModifiedDate
-    @Column(insertable = false, nullable = false)
+    @Column(nullable = false)
     private LocalDateTime lastModifiedAt;
 
 

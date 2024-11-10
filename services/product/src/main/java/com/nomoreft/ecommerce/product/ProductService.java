@@ -40,7 +40,7 @@ public class ProductService {
             var product = storedProducts.get(i);
             var productRequest = storedRequest.get(i);
 
-            if(product.hasSufficientQuantity(productRequest.quantity())) {
+            if(!product.hasSufficientQuantity(productRequest.quantity())) {
                 throw new ProductPurchaseException("Cannot purchase products:: Insufficient quantity for product with ID: " + product.getId());
             }
             product.reduceQuantity(productRequest.quantity());

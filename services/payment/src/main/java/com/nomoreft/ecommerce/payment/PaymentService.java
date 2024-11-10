@@ -1,7 +1,7 @@
 package com.nomoreft.ecommerce.payment;
 
 import com.nomoreft.ecommerce.notification.NotificationProducer;
-import com.nomoreft.ecommerce.notification.PaymentNotifiicationRequest;
+import com.nomoreft.ecommerce.notification.PaymentNotificationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class PaymentService {
         var payment = paymentRepository.save(mapper.toPayment(request));
 
         notificationProducer.sendNotification(
-                new PaymentNotifiicationRequest(
+                new PaymentNotificationRequest(
                 request.orderReference(),
                         request.amount(),
                         request.paymentMethod(),

@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -14,8 +16,8 @@ import java.util.List;
 )
 public interface ProductClient {
 
-    @PostMapping("/purchase")
+    @PostMapping(value = "/purchase")
     List<PurchaseResponse> purchaseProducts(
-            @RequestBody @Valid List<PurchaseRequest> request
+            @RequestBody List<PurchaseRequest> request
     );
 }

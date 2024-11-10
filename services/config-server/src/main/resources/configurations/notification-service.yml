@@ -1,18 +1,22 @@
+server:
+  port: 8040
+
 spring:
-  mongodb:
-    username: hyunwoo
-    password: hyunwoo
-    host: localhost
-    port: 27017
-    database: notification
-    authentication-database: admin
+  data:
+    mongodb:
+      username: hyunwoo
+      password: hyunwoo
+      host: localhost
+      port: 27017
+      database: notification
+      authentication-database: admin
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
       group-id: paymentGroup,orderGroup
       auto-offset-reset: earliest
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer #Kafka 메시지의 키를 직렬화하는 데 사용될 직렬화 클래스를 정의
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # Kafka 메시지의 값을 직렬화하는 데 사용될 직렬화 클래스를 정의
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'
         spring.json.type.mapping: orderConfirmation:com.nomoreft.ecommerce.kafka.order.OrderConfirmation,paymentConfirmation:com.nomoreft.ecommerce.kafka.payment.PaymentConfirmation
@@ -27,10 +31,7 @@ spring:
           trust: "*"
         auth: true
         starttls:
-          enable: true
+          enabled: true
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
-
-server:
-  port: 8040

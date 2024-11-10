@@ -4,7 +4,7 @@ import com.nomoreft.ecommerce.payment.PaymentMethod;
 
 import java.math.BigDecimal;
 
-public record PaymentNotifiicationRequest(
+public record PaymentNotificationRequest(
         String orderReference,
         BigDecimal amount,
         PaymentMethod paymentMethod,
